@@ -18,6 +18,24 @@ Including latest ones:
 
 Work in progress for more ASIC support.
 
+## Features
+
+* Sync with minerstat Dashboard
+
+Hashrate Data, Temps Data, Chains Data
+* Full Control
+
+Reboot, Restart, Shutdown
+* Config Edit
+
+On first sync hub upload your actual cgminer, bmminer config to minerstat Config Editor:
+You are able to edit **pool, frequency, voltage** from **online** (in bulk too)!
+
+* Profit Switch
+
+Configure and mine the always the most profitable coin with your ASIC! 
+Between coin changes with Non-SSH Hub no machine reboot needed.
+
 ## Installation on Linux
 
 ### Install dependencies
