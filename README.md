@@ -8,6 +8,14 @@ Monitoring and management software. ASIC Hub (Non-SSH) makes possible to monitor
 **Supported ASICs:**
 * BITMAIN Antminer's
 
+Including latest ones:
+* Antminer Z11
+* Antminer B7
+* Antminer S17, S17 Pro, T17
+* Antminer S15, T15
+* Antminer Z9, E3
+* Antminer DR5
+
 Work in progress for more ASIC support.
 
 ## Installation on Linux
@@ -143,7 +151,7 @@ $ ulimit -n 4096
 
 ##
 
-***© minerstat OÜ*** in 2018
+***© minerstat OÜ*** in 2019
 
 
 ***Contact:*** app [ @ ] minerstat.com
