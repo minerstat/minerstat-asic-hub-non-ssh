@@ -1,38 +1,40 @@
 ![minerstat logo](https://cdn.rawgit.com/minerstat/minerstat-asic/master/docs/logo_full.svg)
 
-# minerstat ASIC Hub
+# minerstat ASIC Hub (Non-SSH)
 
 ## What is this?
-Monitoring and management software. ASIC Hub (Non-SSH) makes possible to monitor your ASICs without SSH connection established.
+Monitoring and management software - ASIC Hub (Non-SSH) makes possible to monitor your ASICs without SSH connection established.
 
 **Supported ASICs:**
-* BITMAIN Antminer's
+* Bitmain's Antminer ASICs
 
-Including latest ones:
-* Antminer Z11
-* Antminer B7
-* Antminer S17, S17 Pro, T17
-* Antminer S15, T15
-* Antminer Z9, E3
-* Antminer DR5
+Including the latest ones:
+* [Antminer B7](https://minerstat.com/hardware/antminer-b7)
+* [Antminer DR5](https://minerstat.com/hardware/antminer-dr5)
+* [Antminer E3](https://minerstat.com/hardware/antminer-e3)
+* [Antminer S15](https://minerstat.com/hardware/antminer-s15)
+* [Antminer S17](https://minerstat.com/hardware/antminer-s17)
+* [Antminer S17 Pro](https://minerstat.com/hardware/antminer-s17-pro)
+* [Antminer T15](https://minerstat.com/hardware/antminer-t15)
+* [Antminer T17](https://minerstat.com/hardware/antminer-t17)
+* [Antminer Z9](https://minerstat.com/hardware/antminer-z9)
+* [Antminer Z11](https://minerstat.com/hardware/antminer-z11)
 
 Work in progress for more ASIC support.
 
 ## Features
 
-* Sync with minerstat Dashboard
-
+* Sync with minerstat dashboard
 Hashrate Data, Temps Data, Chains Data
+
 * Full Control
-
 Reboot, Restart, Full Config Edit
-* Config Edit
 
+* Config Edit
 On first sync hub upload your actual cgminer, bmminer config to minerstat Config Editor:
 You are able to edit **pool, frequency, voltage** from **online** (in bulk too)!
 
 * Profit Switch
-
 Configure and mine the always the most profitable coin with your ASIC! 
 Between coin changes with Non-SSH Hub no machine reboot needed.
 
@@ -81,7 +83,7 @@ $ screen -dmS mshub-1 hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --l
 ### Importance of ulimit
 
 #### What is ulimit?
-Ulimit is the number of open file descriptors per process. Sometimes you will get the error message is like “too many files open “, it is because you have reached the limits of opened files, so you need to increase the ulimit parameters.
+Ulimit is the number of open file descriptors per process. Sometimes, you will get the error message like “too many files open “. This happens because you have reached the limit of the number opened files, so you need to increase the value of ulimit parameter.
 
 #### How to increase ?
 
@@ -159,7 +161,7 @@ $ hub-mac --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 0
 ### Importance of ulimit
 
 #### What is ulimit?
-Ulimit is the number of open file descriptors per process. Sometimes you will get the error message is like “too many files open “, it is because you have reached the limits of opened files, so you need to increase the ulimit parameters.
+Ulimit is the number of open file descriptors per process. Sometimes, you will get the error message like “too many files open “. This happens because you have reached the limit of the number opened files, so you need to increase the value of ulimit parameter.
 
 #### How to increase ?
 
