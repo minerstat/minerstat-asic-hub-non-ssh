@@ -25,7 +25,7 @@ Work in progress for more ASIC support.
 Hashrate Data, Temps Data, Chains Data
 * Full Control
 
-Reboot, Restart, Shutdown
+Reboot, Restart, Full Config Edit
 * Config Edit
 
 On first sync hub upload your actual cgminer, bmminer config to minerstat Config Editor:
