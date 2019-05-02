@@ -88,20 +88,33 @@ Ulimit is the number of open file descriptors per process. Sometimes, you will g
 #### How to increase ?
 
 ``` sh
-$ ulimit -n 4096
 $ sudo nano /etc/security/limits.conf
 ```
 
 Edit this file to the following:
 
 ``` sh
-*   soft    nofile    4096
-*   hard    nofile    4096
+*   soft    nofile    65535
+*   hard    nofile    65535
+```
+
+Modify /etc/systemd/user.conf
+
+``` sh
+DefaultLimitNOFILE=65535
 ```
 
 CTRL + O -> SAVE
 
 CTRL + C -> CLOSE
+
+After a reboot
+
+``` sh
+$ ulimit -n
+```
+
+Should say 65535
 
 ### How to start Asic Hub with the system?
 
