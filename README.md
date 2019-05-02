@@ -77,7 +77,7 @@ $ hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 0
 
 If you want to start monitoring in the background:
 ``` sh
-$ screen -dmS mshub-1 hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 0
+$ screen -AmdS mshub-1 hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 0
 ```
 
 ### Importance of ulimit
@@ -114,7 +114,7 @@ $ crontab -e
 Edit the file with your start line e.g:
 
 ``` sh
-@reboot screen -dmS mshub-1 hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 0
+@reboot screen -AdmS mshub-1 hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 0
 ```
 
 CTRL + O -> SAVE
