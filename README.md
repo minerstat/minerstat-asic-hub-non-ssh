@@ -64,8 +64,9 @@ You need to see this response:
 -t|--token   : Website Login Key
 -g|--group   : Group/Location
 -l|--limit   : How many request allowed at once
--d|--debug   : Show Detailed Debug Output
+-d|--debug   : Show Detailed Debug Output [ 0 | 1 ]
 -v|--version : Print current version, build number
+-e|--exit    : Exit after SYNC, for every minute crontab [ 0 | 1 ]
 -h|--help    : Print this help menu
 ```
 
@@ -128,6 +129,14 @@ Edit the file with your start line e.g:
 
 ``` sh
 @reboot screen -AdmS mshub-1 hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 0
+```
+
+OR for FARMS
+
+``` sh
+* * * * * screen -A -m -d -S hub-s17 hub-linux --token 4cc355k3y --group s17 --limit 512 --exit 1
+* * * * * screen -A -m -d -S hub-s15 hub-linux --token 4cc355k3y --group s15 --limit 512 --exit 1
+* * * * * screen -A -m -d -S hub-t15 hub-linux --token 4cc355k3y --group t15 --limit 512 --exit 1
 ```
 
 CTRL + O -> SAVE
