@@ -49,6 +49,8 @@ $ sudo apt-get install wget curl jq screen
 
 ### Download and Setup
 
+**NOTE for Raspberry-Pi:** Use hub-pi package instead of hub-linux
+
 Login to your server over SSH OR Open Terminal and execute the following command(s):
 
 ``` sh
