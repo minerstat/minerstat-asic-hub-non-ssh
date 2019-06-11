@@ -74,14 +74,32 @@ You need to see this response:
 
 You can start one or multiple instances to monitor one or more groups at once.
 
+This command is recommended for testing, for production usage use crontab solution.
 ``` sh
-$ hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 0
+$ hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 1 --exit 0
 ```
 
-If you want to start monitoring in the background:
+### How to start Asic Hub with the system?
+
+You'll need to edit crontabs. Here is an example:
+
 ``` sh
-$ screen -AmdS mshub-1 hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 0
+$ crontab -e
 ```
+
+Edit the file with your start line e.g:
+
+(Not required to use separate groups for hub, but more easily to maintain and monitor multiple locations)
+
+``` sh
+* * * * * screen -A -m -d -S hub-s17 hub-linux --token 4cc355k3y --group s17 --limit 512 --exit 1
+* * * * * screen -A -m -d -S hub-s15 hub-linux --token 4cc355k3y --group s15 --limit 512 --exit 1
+* * * * * screen -A -m -d -S hub-t15 hub-linux --token 4cc355k3y --group t15 --limit 512 --exit 1
+```
+
+CTRL + O -> SAVE
+
+CTRL + C -> CLOSE
 
 ### Importance of ulimit
 
@@ -119,32 +137,6 @@ $ ulimit -n
 
 Should say 65535
 
-### How to start Asic Hub with the system?
-
-You'll need to edit crontabs. Here is an example:
-
-``` sh
-$ crontab -e
-```
-
-Edit the file with your start line e.g:
-
-``` sh
-@reboot screen -AdmS mshub-1 hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 0
-```
-
-OR for FARMS
-
-``` sh
-* * * * * screen -A -m -d -S hub-s17 hub-linux --token 4cc355k3y --group s17 --limit 512 --exit 1
-* * * * * screen -A -m -d -S hub-s15 hub-linux --token 4cc355k3y --group s15 --limit 512 --exit 1
-* * * * * screen -A -m -d -S hub-t15 hub-linux --token 4cc355k3y --group t15 --limit 512 --exit 1
-```
-
-CTRL + O -> SAVE
-
-CTRL + C -> CLOSE
-
 ## Installation on macOS
 
 ### Install dependencies
@@ -177,10 +169,10 @@ You need to see this response:
 -h|--help    : Print this help menu
 ```
 
-You can start one or multiple instances to monitor one or more groups at once.
+You can start one or multiple instances to monitor one or more groups at once. (This for test, use crontab for real usage)
 
 ``` sh
-$ hub-mac --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 0
+$ hub-mac --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 1 --exit 0
 ```
 
 ### Importance of ulimit
