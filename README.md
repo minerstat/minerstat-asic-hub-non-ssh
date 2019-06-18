@@ -7,6 +7,7 @@ Monitoring and management software - ASIC Hub (Non-SSH) makes possible to monito
 
 **Supported ASICs:**
 * Bitmain's Antminer ASICs
+* Obelisk's ASICs
 
 Including the latest ones:
 * [Antminer B7](https://minerstat.com/hardware/antminer-b7)
@@ -19,6 +20,16 @@ Including the latest ones:
 * [Antminer T17](https://minerstat.com/hardware/antminer-t17)
 * [Antminer Z9](https://minerstat.com/hardware/antminer-z9)
 * [Antminer Z11](https://minerstat.com/hardware/antminer-z11)
+* [Obelisk DCR1](https://minerstat.com/hardware/obelisk-dcr1)
+* [Obelisk DCR1 Slim](https://minerstat.com/hardware/obelisk-dcr1-slim)
+* [Obelisk GRN1](https://minerstat.com/hardware/obelisk-grn1)
+* [Obelisk GRN1 Immersion](https://minerstat.com/hardware/obelisk-immersion)
+* [Obelisk GRN1 Mini](https://minerstat.com/hardware/obelisk-grn1-mini)
+* [Obelisk SC1](https://minerstat.com/hardware/obelisk-sc1)
+* [Obelisk SC1 Dual](https://minerstat.com/hardware/obelisk-sc1-dual)
+* [Obelisk SC1 Immersion](https://minerstat.com/hardware/obelisk-sc1-immersion)
+* [Obelisk SC1 Slim](https://minerstat.com/hardware/obelisk-sc1-slim)
+
 
 Work in progress for more ASIC support.
 
