@@ -9,8 +9,9 @@ Monitoring and management software - ASIC Hub (Non-SSH) makes possible to monito
 * Bitmain's Antminer ASICs
 * Dayun's ASICs
 * Obelisk's ASICs
+* Innosilicon's ASICs
 
-Including the latest ones:
+Including the latest ones (not full list):
 * [Antminer B7](https://minerstat.com/hardware/antminer-b7)
 * [Antminer DR5](https://minerstat.com/hardware/antminer-dr5)
 * [Antminer E3](https://minerstat.com/hardware/antminer-e3)
@@ -34,7 +35,9 @@ Including the latest ones:
 * [Dayun Zig M1](https://minerstat.com/hardware/dayun-zig-m1)
 * [Dayun Zig Z1](https://minerstat.com/hardware/dayun-zig-z1)
 * [Dayun Zig Z1+](https://minerstat.com/hardware/dayun-zig-z1-plus)
-
+* [Innosilicon A9 - ZMaster](https://minerstat.com/hardware/innosilicon-a9-zmaster)
+* [Innosilicon D9 - DecredMaster](https://minerstat.com/hardware/innosilicon-d9-decredmaster)
+* [Innosilicon S11 - SiaMaster](https://minerstat.com/hardware/innosilicon-s11-siamaster)
 
 Work in progress for more ASIC support.
 
