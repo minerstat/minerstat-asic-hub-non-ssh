@@ -10,6 +10,7 @@ Monitoring and management software - ASIC Hub (Non-SSH) makes possible to monito
 * Dayun's ASICs
 * Obelisk's ASICs
 * Innosilicon's ASICs
+* Spondoolies's ASICs
 
 Including the latest ones (not full list):
 * [Antminer B7](https://minerstat.com/hardware/antminer-b7)
@@ -38,6 +39,7 @@ Including the latest ones (not full list):
 * [Innosilicon A9 - ZMaster](https://minerstat.com/hardware/innosilicon-a9-zmaster)
 * [Innosilicon D9 - DecredMaster](https://minerstat.com/hardware/innosilicon-d9-decredmaster)
 * [Innosilicon S11 - SiaMaster](https://minerstat.com/hardware/innosilicon-s11-siamaster)
+* [Spondoolies SPx36 profitability](https://minerstat.com/hardware/spondoolies-spx36)
 
 Work in progress for more ASIC support.
 
