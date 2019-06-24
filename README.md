@@ -95,9 +95,9 @@ You need to see this response:
 
 You can start one or multiple instances to monitor one or more groups at once.
 
-This command is recommended for testing, for production usage use crontab solution.
+This command is for testing, for production usage use crontab solution.
 ``` sh
-$ hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 1 --exit 0
+$ hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 1
 ```
 
 ### How to start Asic Hub with the system?
@@ -106,6 +106,14 @@ You'll need to edit crontabs. Here is an example:
 
 ``` sh
 $ crontab -e
+
+Select an editor.  To change later, run 'select-editor'.
+  1. /bin/ed
+  2. /bin/nano        <---- easiest
+  3. /usr/bin/vim.tiny
+
+Choose 1-3 [2]: 2
+
 ```
 
 Edit the file with your start line e.g:
@@ -113,9 +121,9 @@ Edit the file with your start line e.g:
 (Not required to use separate groups for hub, but more easily to maintain and monitor multiple locations)
 
 ``` sh
-* * * * * screen -A -m -d -S hub-s17 hub-linux --token 4cc355k3y --group s17 --limit 512 --exit 1
-* * * * * screen -A -m -d -S hub-s15 hub-linux --token 4cc355k3y --group s15 --limit 512 --exit 1
-* * * * * screen -A -m -d -S hub-t15 hub-linux --token 4cc355k3y --group t15 --limit 512 --exit 1
+* * * * * screen -A -m -d -S hub-s17 hub-linux --token 4cc355k3y --group s17 --limit 128 --exit 1
+* * * * * screen -A -m -d -S hub-s15 hub-linux --token 4cc355k3y --group s15 --limit 128 --exit 1
+* * * * * screen -A -m -d -S hub-t15 hub-linux --token 4cc355k3y --group t15 --limit 128 --exit 1
 ```
 
 CTRL + O -> SAVE
@@ -193,7 +201,7 @@ You need to see this response:
 You can start one or multiple instances to monitor one or more groups at once. (This for test, use crontab for real usage)
 
 ``` sh
-$ hub-mac --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 1 --exit 0
+$ hub-mac --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 1
 ```
 
 ### Importance of ulimit
