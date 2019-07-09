@@ -8,9 +8,10 @@ Monitoring and management software - ASIC Hub (Non-SSH) makes possible to monito
 **Supported ASICs:**
 * Bitmain's Antminer ASICs
 * Dayun's ASICs
-* Obelisk's ASICs
 * Innosilicon's ASICs
+* Obelisk's ASICs
 * Spondoolies's ASICs
+* StrongU's ASICs
 
 Including the latest ones (not full list):
 * [Antminer B7](https://minerstat.com/hardware/antminer-b7)
