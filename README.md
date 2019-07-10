@@ -105,7 +105,7 @@ $ hub-linux --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 1
 You'll need to edit crontabs. Here is an example:
 
 ``` sh
-$ crontab -e
+$ export EDITOR=nano && crontab -e
 
 Select an editor.  To change later, run 'select-editor'.
   1. /bin/ed
