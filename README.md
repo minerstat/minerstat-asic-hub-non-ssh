@@ -77,7 +77,7 @@ Login to your server over SSH OR Open Terminal and execute the following command
 
 ``` sh
 $ wget https://github.com/minerstat/minerstat-asic-hub-non-ssh/releases/download/latest/hub-linux && chmod 777 hub-linux
-$ sudo cp hub-linux /usr/bin
+$ sudo cp -rf hub-linux /usr/bin
 $ hub-linux --help
 ```
 
@@ -181,7 +181,8 @@ Login to your server over SSH OR Open Terminal and execute the following command
 
 ``` sh
 $ wget https://github.com/minerstat/minerstat-asic-hub-non-ssh/releases/download/latest/hub-mac && chmod 777 hub-mac
-$ sudo cp hub-mac /usr/local/bin
+$ sudo cp -rf hub-mac /usr/local/bin
+$ export EDITOR=nano
 $ hub-mac --help
 ```
 
