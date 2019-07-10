@@ -172,7 +172,7 @@ Should say 65535
 
 ``` sh
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-$ brew install wget curl jq
+$ brew install wget curl jq screen
 ```
 
 ### Download and Setup
