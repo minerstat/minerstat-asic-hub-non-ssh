@@ -121,9 +121,9 @@ Edit the file with your start line e.g:
 (Not required to use separate groups for hub, but more easily to maintain and monitor multiple locations)
 
 ``` sh
-* * * * * screen -A -m -d -S hub-s17 hub-linux --token 4cc355k3y --group s17 --limit 128 --exit 1
-* * * * * screen -A -m -d -S hub-s15 hub-linux --token 4cc355k3y --group s15 --limit 128 --exit 1
-* * * * * screen -A -m -d -S hub-t15 hub-linux --token 4cc355k3y --group t15 --limit 128 --exit 1
+* * * * * screen -A -m -d -S hub-s17 hub-linux --token 4cc355k3y --group s17 --limit 30
+* * * * * screen -A -m -d -S hub-s15 hub-linux --token 4cc355k3y --group s15 --limit 30
+* * * * * screen -A -m -d -S hub-t15 hub-linux --token 4cc355k3y --group t15 --limit 30
 ```
 
 CTRL + O -> SAVE
@@ -199,11 +199,33 @@ You need to see this response:
 -h|--help    : Print this help menu
 ```
 
-You can start one or multiple instances to monitor one or more groups at once. (This for test, use crontab for real usage)
+### How to start Asic Hub with the system?
+
+You'll need to edit crontabs. Here is an example:
 
 ``` sh
-$ hub-mac --token YOURACCESSKEY --group GROUPTOMONITOR --limit 32 --debug 1
+$ export EDITOR=nano && crontab -e
 ```
+
+Edit the file with your start line e.g:
+
+(Not required to use separate groups for hub, but more easily to maintain and monitor multiple locations)
+
+``` sh
+* * * * * screen -A -m -d -S hub-s17 /usr/local/bin/hub-mac --token 4cc355k3y --group s17 --limit 30
+* * * * * screen -A -m -d -S hub-s15 /usr/local/bin/hub-mac --token 4cc355k3y --group s15 --limit 30
+* * * * * screen -A -m -d -S hub-t15 /usr/local/bin/hub-mac --token 4cc355k3y --group t15 --limit 30
+```
+
+To monitor all workers in one account just use:
+
+``` sh
+* * * * * screen -A -m -d -S hub-s17 /usr/local/bin/hub-mac --token 4cc355k3y --group asic --limit 30
+```
+
+CTRL + O -> SAVE
+
+CTRL + C -> CLOSE
 
 ### Importance of ulimit
 
