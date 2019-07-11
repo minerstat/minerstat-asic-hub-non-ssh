@@ -212,6 +212,7 @@ Edit the file with your start line e.g:
 (Not required to use separate groups for hub, but more easily to maintain and monitor multiple locations)
 
 ``` sh
+PATH=/usr/local/bin:/usr/bin:/bin
 * * * * * screen -A -m -d -S hub-s17 /usr/local/bin/hub-mac --token 4cc355k3y --group s17 --limit 30
 * * * * * screen -A -m -d -S hub-s15 /usr/local/bin/hub-mac --token 4cc355k3y --group s15 --limit 30
 * * * * * screen -A -m -d -S hub-t15 /usr/local/bin/hub-mac --token 4cc355k3y --group t15 --limit 30
@@ -220,6 +221,7 @@ Edit the file with your start line e.g:
 To monitor all workers in one account just use:
 
 ``` sh
+PATH=/usr/local/bin:/usr/bin:/bin
 * * * * * screen -A -m -d -S hub-s17 /usr/local/bin/hub-mac --token 4cc355k3y --group asic --limit 30
 ```
 
