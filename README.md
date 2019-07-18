@@ -7,6 +7,7 @@ Monitoring and management software - ASIC Hub (Non-SSH) makes possible to monito
 
 **Supported ASICs:**
 * Bitmain's Antminer ASICs
+* Braiins OS Firmware
 * Dayun's ASICs
 * Fusionsilicon ASICs
 * Innosilicon's ASICs
@@ -86,12 +87,16 @@ You need to see this response:
 
 ```
 ================ © minerstat OÜ in 2019 ================
--t|--token   : Website Login Key
--g|--group   : Group/Location
--l|--limit   : How many request allowed at once
--d|--debug   : Show Detailed Debug Output [ 0 | 1 ]
--v|--version : Print current version, build number
--h|--help    : Print this help menu
+= Non-SSH Hub v1.0 | Build: 001
+= Supported Brands: Antminer, Dayun Zig, Fusionsilicon, Innosilicon, Obelisk, Spondoolies, StrongU
+-t  | --token         : Website Login Key
+-g  | --group         : Group/Location
+-l  | --limit         : How many request allowed at once
+-d  | --debug         : Show Detailed Debug Output [ 0 | 1 ]
+-v  | --version       : Print current version, build number
+-f  | --firmware      : Select specific firmware to monitor on this instance (optional)
+-fh | --firmware-help : List available firmwares
+-h  | --help          : Print this help menu
 ```
 
 You can start one or multiple instances to monitor one or more groups at once.
@@ -126,6 +131,11 @@ Edit the file with your start line e.g:
 * * * * * screen -A -m -d -S hub-s15 hub-linux --token 4cc355k3y --group s15 --limit 30
 * * * * * screen -A -m -d -S hub-t15 hub-linux --token 4cc355k3y --group t15 --limit 30
 ```
+
+We support custom firmwares to monitor & control.
+Braiins OS: --firmware braiins 
+
+If custom firmwares monitored that need to be on one instance as firmware tag applies to all worker on the monitored group.
 
 CTRL + O -> SAVE
 
@@ -191,13 +201,16 @@ You need to see this response:
 
 ```
 ================ © minerstat OÜ in 2019 ================
--t|--token   : Website Login Key
--g|--group   : Group/Location
--l|--limit   : How many request allowed at once
--d|--debug   : Show Detailed Debug Output [ 0 | 1 ]
--v|--version : Print current version, build number
--e|--exit    : Exit after SYNC, for every minute crontab [ 0 | 1 ]
--h|--help    : Print this help menu
+= Non-SSH Hub v1.0 | Build: 001
+= Supported Brands: Antminer, Dayun Zig, Fusionsilicon, Innosilicon, Obelisk, Spondoolies, StrongU
+-t  | --token         : Website Login Key
+-g  | --group         : Group/Location
+-l  | --limit         : How many request allowed at once
+-d  | --debug         : Show Detailed Debug Output [ 0 | 1 ]
+-v  | --version       : Print current version, build number
+-f  | --firmware      : Select specific firmware to monitor on this instance (optional)
+-fh | --firmware-help : List available firmwares
+-h  | --help          : Print this help menu
 ```
 
 ### How to start Asic Hub with the system?
@@ -225,6 +238,11 @@ To monitor all workers in one account just use:
 PATH=/usr/local/bin:/usr/bin:/bin
 * * * * * screen -A -m -d -S hub-s17 /usr/local/bin/hub-mac --token 4cc355k3y --group asic --limit 30
 ```
+
+We support custom firmwares to monitor & control.
+Braiins OS: --firmware braiins 
+
+If custom firmwares monitored that need to be on one instance as firmware tag applies to all worker on the monitored group.
 
 CTRL + O -> SAVE
 
