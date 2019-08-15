@@ -3,9 +3,9 @@
 # Mail: Sepapaja tn 6, Lasnamäe district, Tallinn city, Harju county, 15551, Estonia
 # © minerstat OÜ in 2019
 
-echo "================ © minerstat OÜ in 2019 ================"
-echo "ASIC Hub Non-SSH Installation Wizard"
-echo "Join us on Discord for live support: https://minerstat.com/discord"
+echo "================ minerstat OÜ © 2019 ================"
+echo "ASIC Hub (Non-SSH) Installation Wizard"
+echo "For live chat join us on Discord: https://minerstat.com/discord"
 
 TOKEN=$1
 GROUP=$2
@@ -97,18 +97,61 @@ unset dialogPresent
 # COLOR
 rm ~/.dialogrc 2> /dev/null
 dialog --create-rc ~/.dialogrc
+echo 'aspect = 0separate_widget = ""
+tab_len = 0
+visit_items = ON
+use_shadow = OFF
+use_colors = ON
+screen_color = (WHITE,BLACK,OFF)
+shadow_color = (BLACK,BLACK,OFF)
+dialog_color = (WHITE,BLACK,OFF)
+title_color = (CYAN,BLACK,OFF)
+border_color = (CYAN,BLACK,OFF)
+button_active_color = (CYAN,BLACK,ON)
+button_inactive_color = dialog_color
+button_key_active_color = button_active_color
+button_key_inactive_color = (WHITE,BLACK,OFF)
+button_label_active_color = (CYAN,BLACK,ON)
+button_label_inactive_color = (WHITE,BLACK,ON)
+inputbox_color = dialog_color
+inputbox_border_color = border_color
+searchbox_color = dialog_color
+searchbox_title_color = title_color
+searchbox_border_color = border_color
+position_indicator_color = title_color
+menubox_color = dialog_color
+menubox_border_color = border_color
+item_color = dialog_color
+item_selected_color = button_active_color
+tag_color = title_color
+tag_selected_color = button_label_active_color
+tag_key_color = button_key_inactive_color
+tag_key_selected_color = (CYAN,BLACK,ON)
+check_color = dialog_color
+check_selected_color = button_active_color
+uarrow_color = (CYAN,WHITE,ON)
+darrow_color = uarrow_color
+itemhelp_color = (WHITE,BLACK,OFF)
+form_active_text_color = button_active_color
+form_text_color = (CYAN,RED,ON)
+form_item_readonly_color = (CYAN,WHITE,ON)
+gauge_color = title_color
+border2_color = border_color
+inputbox_border2_color = border_color
+searchbox_border2_color = border_color
+menubox_border2_color = border_color' > ~/.dialogrc
 
-dialog --backtitle "minerstat Non-SSH Wizard" --title "Before your start" --msgbox "\n You need a registered account on my.minerstat.com \n and an asic machine for monitoring" 10 70
+dialog --backtitle "minerstat ASIC Hub (Non-SSH) Wizard" --title " ASIC Hub (Non-SSH) " --msgbox "Before you start make sure you are registered on my.minerstat.com and you have added at least one ASIC to your minerstat dashboard." 12 42
 
 # Ask Info if Args empty & No defined
 if [ -z "$TOKEN" -a "$TOKEN" != " " ]; then
   echo '= Enter your minerstat ACCESS KEY'
-  TOKEN=$(dialog --backtitle "minerstat Non-SSH Wizard" --title "Enter your minerstat ACCESS KEY" --inputbox "On my.minerstat.com In the top right corner, you can find your access key which are hidden until you hover over the header. (Case sensitive)" 10 40 2>&1 1>/dev/tty)
+  TOKEN=$(dialog --backtitle "minerstat ASIC Hub (Non-SSH) Wizard" --title " Enter your access key " --inputbox "You can find your access key by hovering mouse over your avatar in the top right corner on my.minerstat.com or in the e-mail we have sent you. Access key is case-sensitive." 12 42 2>&1 1>/dev/tty)
 fi
 
 if [ -z "$GROUP" -a "$GROUP" != " " ]; then
-  echo '= Enter your group/location [Default: asic] [Enter to skip]'
-  GROUP=$(dialog --backtitle "minerstat Non-SSH Wizard" --title "Enter your group/location" --inputbox "[Default: asic] [Enter to skip]" 10 40 2>&1 1>/dev/tty)
+  echo '= Enter group/location [Default: asic] [Enter to skip]'
+  GROUP=$(dialog --backtitle "minerstat ASIC Hub (Non-SSH) Wizard" --title " Enter group for monitoring " --inputbox "Enter the group name of the workers you want to monitor. Default group is asic." 12 42 2>&1 1>/dev/tty)
 fi
 
 if [ -z "$TOKEN" ]; then
@@ -175,7 +218,7 @@ echo "Validating account ..."
 echo "-----------------------"
 echo "= ULIMIT      : $MAX_REQUEST_AT_ALL_TIME / $MAX_REQUEST_SYSTEM"
 API=$(curl -s https://api.minerstat.com/v2/stats/$TOKEN/asicgroups/$GROUP)
-API_MAX=$(echo $API | grep "," | wc -w | xargs -0)
+API_MAX=$(echo $API | grep "," | wc -w | xargs)
 echo "= WORKERS TO MONITOR: $API_MAX"
 
 if [ "$API_MAX" = "0" ]; then
@@ -209,7 +252,7 @@ if [[ $API == *"antminer"* ]]; then
   echo "ANTMINER machine detected on your account"
   echo
   sleep 1
-  FIRMWARE=$(dialog --backtitle "minerstat Non-SSH Wizard" --radiolist "Select with SPACE then press ENTER \nAll antminer will be monitored with the selected option on this instance" 13 45 20 "Factory Firmware" "ORIGINAL" "" "Braiins Firmware" "BRAIINS" "BRAIINS" 2>&1 1>/dev/tty)
+  FIRMWARE=$(dialog --backtitle "minerstat ASIC Hub (Non-SSH) Wizard" --title " Select firmware " --radiolist "Select with [SPACE] then press [ENTER] to confirm the selection. All ASICs in the group will be monitored with the selected option." 12 42 20 "Factory Firmware" "ORIGINAL" "" "Braiins Firmware" "BRAIINS" "BRAIINS" 2>&1 1>/dev/tty)
   #read FIRMWARE
   echo "-----------------------"
   echo
@@ -256,10 +299,10 @@ fi
 #fi
 
 
-dialog --backtitle "minerstat Non-SSH Wizard" --title "Installation Finished." --msgbox "\n If you want to manually edit your crontabs: \n ENTER: export EDITOR=nano && crontab -e \n In manually crontab edit: CTRL + O [Save], CTRL + C [Close]" 10 70
+dialog --backtitle "minerstat ASIC Hub (Non-SSH) Wizard" --title " Installation finished " --msgbox "If you want to manually edit your cron tabs enter:\n\nexport EDITOR=nano && crontab -e\n\nWhen you finish press [CTRL + O] to save and [CTRL + C] to close the cron tab file." 12 42
 
 clear
 echo
-echo "Troubles? "
-echo "Support: https://minerstat.com/discord (Contact person: coinscrow#0001)"
+echo "Need assistance? "
+echo "You can find us on https://minerstat.com/discord (contact person: coinscrow#0001)."
 echo
