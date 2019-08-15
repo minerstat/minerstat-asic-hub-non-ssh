@@ -39,11 +39,16 @@ if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent
     brew install wget curl jq dialog
   else
     sudo apt-get install wget curl jq dialog
+    sleep 3
   fi
   echo ""
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo ""
 fi
+
+unset curlPresent
+unset jqPresent
+unset dialogPresent
 
 # Recheck
 which curl 2>&1 >/dev/null && curlPresent=true
