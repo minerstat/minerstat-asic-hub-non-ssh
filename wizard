@@ -49,8 +49,6 @@ fi
 
 echo
 echo "-------------------"
-echo "= ACCESS KEY   : $TOKEN"
-echo "= GROUP        : $GROUP"
 # Echo temporary data about software type and system
 echo "= System      : $SYSTEM"
 echo "= Exec        : $EXECNAME"
@@ -82,23 +80,6 @@ fi
 unset curlPresent
 unset jqPresent
 unset dialogPresent
-
-# Recheck
-echo "Validating dependencies.."
-which curl 2>&1 >/dev/null && curlPresent=true
-which jq 2>&1 >/dev/null && jqPresent=true
-which dialog 2>&1 >/dev/null && dialogPresent=true
-if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent:-}" ]; then
-  echo "Please, install dependencies manually."
-  echo "Copy paste the following in to your terminal after enter your password."
-  if [ $SYSTEM = "MAC" ]; then
-    echo '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
-    echo 'brew install wget curl jq dialog'
-  else
-    echo 'sudo apt-get install wget curl jq dialog'
-  fi
-  exit 0
-fi
 
 dialog --backtitle "minerstat Non-SSH Wizard" --title "Before your start" --msgbox "\n You need a registered account on my.minerstat.com \n and an asic machine for monitoring" 10 70
 
@@ -134,6 +115,8 @@ else
   INSTALLED="NO"
 fi
 
+echo "= ACCESS KEY   : $TOKEN"
+echo "= GROUP        : $GROUP"
 echo "= Installed?  : $INSTALLED"
 echo "-------------------"
 echo
