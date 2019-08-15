@@ -4,7 +4,7 @@
 # © minerstat OÜ in 2019
 
 echo "================ minerstat OÜ © 2019 ================"
-echo "ASIC Hub (Non-SSH) Uninstallation Wizard"
+echo "ASIC Hub (Non-SSH) Uninstallation Script"
 echo "For live chat join us on Discord: https://minerstat.com/discord"
 
 echo
@@ -82,11 +82,13 @@ echo "Uninstallation finished."
 echo "-------------"
 echo
 
-sleep 2
-
+sleep 4
 clear
+
 echo
+echo "-------------"
 echo "Uninstallation finished."
+echo "-------------"
 echo "Need assistance? "
 echo "You can find us on https://minerstat.com/discord (contact person: coinscrow#0001)."
 echo
