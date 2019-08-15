@@ -62,7 +62,12 @@ You are able to edit **pool, frequency, voltage** from **online** (in bulk too)!
 Configure and mine the always the most profitable coin with your ASIC! 
 Between coin changes with Non-SSH Hub no machine reboot needed.
 
-## Installation on Linux
+## Installer Wizard [MacOS / Linux]
+``` sh
+wget -O - https://raw.githubusercontent.com/minerstat/minerstat-asic-hub-non-ssh/master/wizard | bash
+```
+
+## Manual Installation on Linux
 
 ### Install dependencies
 
@@ -177,7 +182,7 @@ $ ulimit -n
 
 Should say 65535
 
-## Installation on macOS
+## Manual Installation on macOS
 
 ### Install dependencies
 
