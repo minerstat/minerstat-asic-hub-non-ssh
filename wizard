@@ -86,7 +86,7 @@ dialog --backtitle "minerstat Non-SSH Wizard" --title "Before your start" --msgb
 # Ask Info if Args empty & No defined
 if [ -z "$TOKEN" -a "$TOKEN" != " " ]; then
   echo '= Enter your minerstat ACCESS KEY'
-  TOKEN=$(dialog --backtitle "minerstat Non-SSH Wizard" --title "Enter your minerstat ACCESS KEY" --inputbox "On my.minerstat.com In the top right corner, you can find your access key which are hidden until you hover over the header. (Case sensitive)" 10 40 2>&1 1>/dev/tty)
+  TOKEN=$(dialog --backtitle "minerstat Non-SSH Wizard" --title "Enter your minerstat ACCESS KEY" --inputbox "On my.minerstat.com In the top right corner, you can find your access key which is hidden until you hover over the header. (Case sensitive)" 10 40 2>&1 1>/dev/tty)
 fi
 
 if [ -z "$GROUP" -a "$GROUP" != " " ]; then
@@ -95,6 +95,7 @@ if [ -z "$GROUP" -a "$GROUP" != " " ]; then
 fi
 
 if [ -z "$TOKEN" ]; then
+  echo
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo "!! ERROR: Missing Access Key"
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -102,6 +103,7 @@ if [ -z "$TOKEN" ]; then
 fi
 
 if [ -z "$GROUP" ]; then
+  echo
   echo '!! WARNING: No group/location provided.'
   echo '!! WARNING: Monitoring all worker(s) on the account'
   GROUP="asic"
@@ -115,6 +117,7 @@ else
   INSTALLED="NO"
 fi
 
+echo
 echo "= ACCESS KEY   : $TOKEN"
 echo "= GROUP        : $GROUP"
 echo "= Installed?  : $INSTALLED"
@@ -206,8 +209,10 @@ echo "-----------------------"
 
 if [ "$SYSTEM" = "MAC" ]; then
   if [[ $CRONTAB == *"local"* ]]; then
+    echo
     echo "= MAC PATH INSTALLED FOR CRON"
   else
+    echo
     echo "= INSALLING MAC PATH FOR CRON"
     echo "= “Terminal” would like to administer your computer. Administration can include modifying passwords, networking and system settings."
     echo "= CLICK on [OK]"
