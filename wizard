@@ -23,6 +23,30 @@ echo
 echo "Preparing.."
 sleep 2
 
+# System check
+if [ "$(uname)" == "Darwin" ]; then
+  SYSTEM="MAC";
+else
+  SYSTEM="LINUX";
+fi
+PIFETCH=$(cat /proc/device-tree/model 2> /dev/null)
+if [[ $PIFETCH == *"Raspberry"* ]]; then
+  SYSTEM="RASPBERRY"
+fi
+
+CRONTAB=$(crontab -l | xargs)
+
+if [ "$SYSTEM" = "MAC" ]; then
+  EXECNAME="hub-mac"
+  LOCATION="/usr/local/bin"
+elif [ "$SYSTEM" = "LINUX" ]; then
+  EXECNAME="hub-linux"
+  LOCATION="/usr/bin"
+else
+  EXECNAME="hub-pi"
+  LOCATION="/usr/bin"
+fi
+
 # Dependencies Check
 which curl 2>&1 >/dev/null && curlPresent=true
 which jq 2>&1 >/dev/null && jqPresent=true
@@ -96,31 +120,6 @@ echo
 echo "-------------------"
 echo "= ACCESS KEY   : $TOKEN"
 echo "= GROUP        : $GROUP"
-
-# System check
-if [ "$(uname)" == "Darwin" ]; then
-  SYSTEM="MAC";
-else
-  SYSTEM="LINUX";
-fi
-PIFETCH=$(cat /proc/device-tree/model 2> /dev/null)
-if [[ $PIFETCH == *"Raspberry"* ]]; then
-  SYSTEM="RASPBERRY"
-fi
-
-CRONTAB=$(crontab -l | xargs)
-
-if [ "$SYSTEM" = "MAC" ]; then
-  EXECNAME="hub-mac"
-  LOCATION="/usr/local/bin"
-elif [ "$SYSTEM" = "LINUX" ]; then
-  EXECNAME="hub-linux"
-  LOCATION="/usr/bin"
-else
-  EXECNAME="hub-pi"
-  LOCATION="/usr/bin"
-fi
-
 # Echo temporary data about software type and system
 echo "= System      : $SYSTEM"
 echo "= Exec        : $EXECNAME"
