@@ -34,7 +34,7 @@ if [[ $PIFETCH == *"Raspberry"* ]]; then
   SYSTEM="RASPBERRY"
 fi
 
-CRONTAB=$(crontab -l | xargs)
+CRONTAB=$(crontab -l | xargs -0)
 
 if [ "$SYSTEM" = "MAC" ]; then
   EXECNAME="hub-mac"
@@ -69,7 +69,7 @@ if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew install wget curl jq dialog
   else
-    sudo apt-get install wget curl jq dialog
+    sudo apt-get --yes --force-yes install wget curl jq dialog
   fi
   echo ""
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -122,7 +122,7 @@ echo "-------------------"
 echo
 
 # ULIMIT CHECK
-MAX_REQUEST_SYSTEM=$(ulimit -n | xargs)
+MAX_REQUEST_SYSTEM=$(ulimit -n | xargs -0)
 MAX_REQUEST_AT_ALL_TIME=$(($MAX_REQUEST_AT_A_TIME*3))
 MAX_REQUEST_AT_PER_TIME=$(($MAX_REQUEST_SYSTEM/3))
 
@@ -151,7 +151,7 @@ echo "Validating account ..."
 echo "-----------------------"
 echo "= ULIMIT      : $MAX_REQUEST_AT_ALL_TIME / $MAX_REQUEST_SYSTEM"
 API=$(curl -s https://api.minerstat.com/v2/stats/$TOKEN/asicgroups/$GROUP)
-API_MAX=`echo $API | grep "," | wc -w | xargs`
+API_MAX=$(echo $API | grep "," | wc -w | xargs -0)
 echo "= WORKERS TO MONITOR: $API_MAX"
 
 if [ "$API_MAX" = "0" ]; then
