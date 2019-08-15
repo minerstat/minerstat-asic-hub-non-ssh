@@ -1,0 +1,254 @@
+#!/bin/bash
+# Contact: <info@minerstat.com>
+# Mail: Sepapaja tn 6, Lasnamäe district, Tallinn city, Harju county, 15551, Estonia
+# © minerstat OÜ in 2019
+
+echo "================ © minerstat OÜ in 2019 ================"
+echo "ASIC Hub Non-SSH Installation Wizard"
+echo "Join us on Discord for live support: https://minerstat.com/discord"
+
+TOKEN=$1
+GROUP=$2
+MAX_REQUEST_AT_A_TIME=$3
+
+current_date () {
+  DATE=`date '+%H:%M:%S'`
+}
+
+if [ -z "$MAX_REQUEST_AT_A_TIME" ]; then
+  MAX_REQUEST_AT_A_TIME=60
+fi
+
+echo
+echo "Preparing.."
+sleep 2
+
+# Dependencies Check
+which curl 2>&1 >/dev/null && curlPresent=true
+which jq 2>&1 >/dev/null && jqPresent=true
+which dialog 2>&1 >/dev/null && dialogPresent=true
+
+if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent:-}" ]; then
+  echo ""
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  echo ""
+  echo "= INSTALLING DEPENDENCIES"
+  echo ""
+  if [ $SYSTEM = "MAC" ]; then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew install wget curl jq dialog
+  else
+    sudo apt-get install wget curl jq dialog
+  fi
+  echo ""
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  echo ""
+fi
+
+# Recheck
+which curl 2>&1 >/dev/null && curlPresent=true
+which jq 2>&1 >/dev/null && jqPresent=true
+which dialog 2>&1 >/dev/null && dialogPresent=true
+if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent:-}" ]; then
+  echo "Please, install dependencies manually."
+  echo "Copy paste the following in to your terminal after enter your password."
+  if [ $SYSTEM = "MAC" ]; then
+    echo '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+    echo 'brew install wget curl jq dialog'
+  else
+    echo 'sudo apt-get install wget curl jq dialog'
+  fi
+  exit 0
+fi
+
+dialog --backtitle "minerstat Non-SSH Wizard" --title "Before your start" --msgbox "\n You need a registered account on my.minerstat.com \n and an asic machine for monitoring" 10 70
+
+# Ask Info if Args empty & No defined
+if [ -z "$TOKEN" -a "$TOKEN" != " " ]; then
+  echo '= Enter your minerstat ACCESS KEY'
+  TOKEN=$(dialog --backtitle "minerstat Non-SSH Wizard" --title "Enter your minerstat ACCESS KEY" --inputbox "On my.minerstat.com In the top right corner, you can find your access key which are hidden until you hover over the header. (Case sensitive)" 10 40 2>&1 1>/dev/tty)
+fi
+
+if [ -z "$GROUP" -a "$GROUP" != " " ]; then
+  echo '= Enter your group/location [Default: asic] [Enter to skip]'
+  GROUP=$(dialog --backtitle "minerstat Non-SSH Wizard" --title "Enter your group/location" --inputbox "[Default: asic] [Enter to skip]" 10 40 2>&1 1>/dev/tty)
+fi
+
+if [ -z "$TOKEN" ]; then
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  echo "!! ERROR: Missing Access Key"
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  exit 0
+fi
+
+if [ -z "$GROUP" ]; then
+  echo '!! WARNING: No group/location provided.'
+  echo '!! WARNING: Monitoring all worker(s) on the account'
+  GROUP="asic"
+fi
+
+echo
+echo "-------------------"
+echo "= ACCESS KEY   : $TOKEN"
+echo "= GROUP        : $GROUP"
+
+# System check
+if [ "$(uname)" == "Darwin" ]; then
+  SYSTEM="MAC";
+else
+  SYSTEM="LINUX";
+fi
+PIFETCH=$(cat /proc/device-tree/model 2> /dev/null)
+if [[ $PIFETCH == *"Raspberry"* ]]; then
+  SYSTEM="RASPBERRY"
+fi
+
+CRONTAB=$(crontab -l | xargs)
+
+if [ "$SYSTEM" = "MAC" ]; then
+  EXECNAME="hub-mac"
+  LOCATION="/usr/local/bin"
+elif [ "$SYSTEM" = "LINUX" ]; then
+  EXECNAME="hub-linux"
+  LOCATION="/usr/bin"
+else
+  EXECNAME="hub-pi"
+  LOCATION="/usr/bin"
+fi
+
+# Echo temporary data about software type and system
+echo "= System      : $SYSTEM"
+echo "= Exec        : $EXECNAME"
+
+# Check it is installed
+FILE="$LOCATION/$EXECNAME"
+if [[ -f "$FILE" ]]; then
+  INSTALLED="YES"
+else
+  INSTALLED="NO"
+fi
+
+echo "= Installed?  : $INSTALLED"
+echo "-------------------"
+echo
+
+# ULIMIT CHECK
+MAX_REQUEST_SYSTEM=$(ulimit -n | xargs)
+MAX_REQUEST_AT_ALL_TIME=$(($MAX_REQUEST_AT_A_TIME*3))
+MAX_REQUEST_AT_PER_TIME=$(($MAX_REQUEST_SYSTEM/3))
+
+# Ulimit Protection
+if [ $MAX_REQUEST_SYSTEM -lt $MAX_REQUEST_AT_ALL_TIME ]; then
+  echo ""
+  echo "-----------------------"
+  echo "= CRITICAL ERROR!"
+  echo "-----------------------"
+  echo ""
+  echo "= MESSAGE: YOUR SYSTEM DEFINED MAXIMAL ALLOWED REQUEST IS $MAX_REQUEST_SYSTEM"
+  echo "= YOU HAVE SET $MAX_REQUEST_AT_A_TIME*3 [$MAX_REQUEST_AT_ALL_TIME]"
+  echo "= ENTER THIS COMMAND BEFORE RUNNING SOFTWARE AGAIN:"
+  echo ""
+  echo "ulimit -n $MAX_REQUEST_AT_ALL_TIME"
+
+  echo ""
+  echo "-----------------------"
+  echo "Press ENTER to exit"
+  echo "-----------------------"
+  read -p "[PRESS ENTER]"
+  exit 0
+fi
+
+echo "Validating account ..."
+echo "-----------------------"
+echo "= ULIMIT      : $MAX_REQUEST_AT_ALL_TIME / $MAX_REQUEST_SYSTEM"
+API=$(curl -s https://api.minerstat.com/v2/stats/$TOKEN/asicgroups/$GROUP)
+API_MAX=`echo $API | grep "," | wc -w | xargs`
+echo "= WORKERS TO MONITOR: $API_MAX"
+
+if [ "$API_MAX" = "0" ]; then
+  echo
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  echo "!! ERROR: No workers found on Access Key: $TOKEN, Group: $GROUP"
+  echo "!! Recheck provided account info and try again. "
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  echo
+  exit 0
+fi
+echo "-----------------------"
+
+# install
+rm $EXECNAME
+wget https://github.com/minerstat/minerstat-asic-hub-non-ssh/releases/download/latest/$EXECNAME
+chmod 777 $EXECNAME
+echo
+echo "-----------------------"
+echo "Provide your SYSTEM (USER/ROOT) password below, if the system requires it"
+echo "-----------------------"
+echo
+sudo cp -rf $EXECNAME $LOCATION
+
+FIRMWARE=""
+
+# firmware questions
+if [[ $API == *"antminer"* ]]; then
+  echo
+  echo "-----------------------"
+  echo "ANTMINER machine detected on your account"
+  echo "Are you using STOCK or BRAIINS OS Firmware ?"
+  echo "Press [ENTER] if DEFAULT FACTORY FIRMWARE"
+  echo "Enter: braiins  - If you are using ALL antminer machines with Braiins Firmware"
+  echo
+  echo "Answer:"
+  FIRMWARE=$(dialog --backtitle "minerstat Non-SSH Wizard" --title "Are you using STOCK or BRAIINS OS Firmware ?" --inputbox "Press [ENTER] if DEFAULT FACTORY FIRMWARE \n Enter: braiins  - If you are using ALL antminer machines with Braiins Firmware" 10 50 2>&1 1>/dev/tty)
+  #read FIRMWARE
+  echo "-----------------------"
+  echo
+fi
+
+#if [ ! -z $FIRMWARE ]; then
+if [ "$FIRMWARE" = "braiins" ]; then
+  EXTRA="--firmware braiins"
+fi
+#fi
+
+echo
+echo "Checking for Crontabs ..."
+echo "-----------------------"
+
+if [ "$SYSTEM" = "MAC" ]; then
+  if [[ $CRONTAB == *"local"* ]]; then
+    echo "= MAC PATH INSTALLED FOR CRON"
+  else
+    echo "= INSALLING MAC PATH FOR CRON"
+    echo "= “Terminal” would like to administer your computer. Administration can include modifying passwords, networking and system settings."
+    echo "= CLICK on [OK]"
+    echo "PATH=/usr/local/bin:/usr/bin:/bin" > cron
+    crontab -l >> cron
+    crontab cron
+    rm cron
+  fi
+fi
+
+#if [[ $CRONTAB == *"$EXECNAME"* ]]; then
+if [[ $CRONTAB == *"--token $TOKEN"* ]] && [[ $CRONTAB == *"--group $GROUP"* ]] && [[ $CRONTAB == *"$EXTRA"* ]]; then
+  echo "= Installation already found for this access key and group"
+  INSTALL=""
+else
+  echo "= No installation found for this access key and group"
+  crontab -l > cron
+  RN=$((1 + RANDOM % 9999))
+  echo "* * * * * screen -A -m -d -S mshub$RN $EXECNAME --token $TOKEN --group $GROUP --limit $MAX_REQUEST_AT_PER_TIME --debug 0 $EXTRA" >> cron
+  cat cron
+  crontab cron
+  rm cron
+  echo
+fi
+#fi
+
+
+dialog --backtitle "minerstat Non-SSH Wizard" --title "Installation Finished." --msgbox "\n If you want to manually edit your crontabs: \n ENTER: export EDITOR=nano && crontab -e \n In manually crontab edit: CTRL + O [Save], CTRL + C [Close]" 10 70
+
+echo
+echo "Troubles? "
+echo "Support: https://minerstat.com/discord (Contact person: coinscrow#0001)"
+echo
