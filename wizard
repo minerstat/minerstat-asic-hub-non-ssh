@@ -94,6 +94,10 @@ unset curlPresent
 unset jqPresent
 unset dialogPresent
 
+# COLOR
+rm ~/.dialogrc 2> /dev/null
+dialog --create-rc ~/.dialogrc
+
 dialog --backtitle "minerstat Non-SSH Wizard" --title "Before your start" --msgbox "\n You need a registered account on my.minerstat.com \n and an asic machine for monitoring" 10 70
 
 # Ask Info if Args empty & No defined
@@ -108,6 +112,7 @@ if [ -z "$GROUP" -a "$GROUP" != " " ]; then
 fi
 
 if [ -z "$TOKEN" ]; then
+  echo
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo "!! ERROR: Missing Access Key"
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -115,6 +120,7 @@ if [ -z "$TOKEN" ]; then
 fi
 
 if [ -z "$GROUP" ]; then
+  echo
   echo '!! WARNING: No group/location provided.'
   echo '!! WARNING: Monitoring all worker(s) on the account'
   GROUP="asic"
@@ -184,7 +190,7 @@ fi
 echo "-----------------------"
 
 # install
-rm $EXECNAME
+rm $EXECNAME 2> /dev/null
 wget https://github.com/minerstat/minerstat-asic-hub-non-ssh/releases/download/latest/$EXECNAME
 chmod 777 $EXECNAME
 echo
@@ -203,7 +209,7 @@ if [[ $API == *"antminer"* ]]; then
   echo "ANTMINER machine detected on your account"
   echo
   sleep 1
-  FIRMWARE=$(dialog --backtitle "minerstat Non-SSH Wizard" --radiolist "Select with SPACE then press ENTER" 20 40 20 "Factory Firmware" "ORIGINAL" "" "Braiins Firmware" "BRAIINS" "BRAIINS" 2>&1 1>/dev/tty)
+  FIRMWARE=$(dialog --backtitle "minerstat Non-SSH Wizard" --radiolist "Select with SPACE then press ENTER \nAll antminer will be monitored with the selected option on this instance" 13 45 20 "Factory Firmware" "ORIGINAL" "" "Braiins Firmware" "BRAIINS" "BRAIINS" 2>&1 1>/dev/tty)
   #read FIRMWARE
   echo "-----------------------"
   echo
