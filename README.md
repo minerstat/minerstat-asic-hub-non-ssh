@@ -64,7 +64,12 @@ Between coin changes with Non-SSH Hub no machine reboot needed.
 
 ## Installer Wizard [MacOS / Linux]
 ``` sh
-wget -O - https://raw.githubusercontent.com/minerstat/minerstat-asic-hub-non-ssh/master/wizard | bash
+wget -O - https://minerstat.com/nonssh-install | bash
+```
+
+## Uninstaller [MacOS / Linux]
+``` sh
+wget -O - https://minerstat.com/nonssh-uninstall | bash
 ```
 
 ## Manual Installation on Linux
