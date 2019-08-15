@@ -69,7 +69,20 @@ if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew install wget curl jq dialog
   else
+    FILE="/media/storage/config.js"
+    if [[ -f "$FILE" ]]; then
+      sudo apt --yes --force-yes --fix-broken install
+    fi
     sudo apt-get --yes --force-yes install wget curl jq dialog
+    if [[ -f "$FILE" ]]; then
+      NVIDIA="$(nvidia-smi -L)"
+      if echo "$NVIDIA" | grep -iq "^GPU 0:" ;then
+        CHECKAPTXN=$(dpkg -l | grep "libegl1-amdgpu-pro" | wc -l)
+        if [ "$CHECKAPTXN" -gt "0" ]; then
+          sudo dpkg --remove --force-all libegl1-amdgpu-pro:i386 libegl1-amdgpu-pro:amd64
+        fi
+      fi
+    fi
   fi
   echo ""
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -86,7 +99,7 @@ dialog --backtitle "minerstat Non-SSH Wizard" --title "Before your start" --msgb
 # Ask Info if Args empty & No defined
 if [ -z "$TOKEN" -a "$TOKEN" != " " ]; then
   echo '= Enter your minerstat ACCESS KEY'
-  TOKEN=$(dialog --backtitle "minerstat Non-SSH Wizard" --title "Enter your minerstat ACCESS KEY" --inputbox "On my.minerstat.com In the top right corner, you can find your access key which is hidden until you hover over the header. (Case sensitive)" 10 40 2>&1 1>/dev/tty)
+  TOKEN=$(dialog --backtitle "minerstat Non-SSH Wizard" --title "Enter your minerstat ACCESS KEY" --inputbox "On my.minerstat.com In the top right corner, you can find your access key which are hidden until you hover over the header. (Case sensitive)" 10 40 2>&1 1>/dev/tty)
 fi
 
 if [ -z "$GROUP" -a "$GROUP" != " " ]; then
@@ -95,7 +108,6 @@ if [ -z "$GROUP" -a "$GROUP" != " " ]; then
 fi
 
 if [ -z "$TOKEN" ]; then
-  echo
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo "!! ERROR: Missing Access Key"
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -103,7 +115,6 @@ if [ -z "$TOKEN" ]; then
 fi
 
 if [ -z "$GROUP" ]; then
-  echo
   echo '!! WARNING: No group/location provided.'
   echo '!! WARNING: Monitoring all worker(s) on the account'
   GROUP="asic"
@@ -117,7 +128,6 @@ else
   INSTALLED="NO"
 fi
 
-echo
 echo "= ACCESS KEY   : $TOKEN"
 echo "= GROUP        : $GROUP"
 echo "= Installed?  : $INSTALLED"
@@ -127,7 +137,12 @@ echo
 # ULIMIT CHECK
 MAX_REQUEST_SYSTEM=$(ulimit -n | xargs -0)
 MAX_REQUEST_AT_ALL_TIME=$(($MAX_REQUEST_AT_A_TIME*3))
-MAX_REQUEST_AT_PER_TIME=$(($MAX_REQUEST_SYSTEM/3))
+
+if [ "$MAX_REQUEST_AT_A_TIME" = "60" ]; then
+  MAX_REQUEST_AT_PER_TIME=$(($MAX_REQUEST_SYSTEM/3))
+else
+  MAX_REQUEST_AT_PER_TIME=$(($MAX_REQUEST_AT_A_TIME/3))
+fi
 
 # Ulimit Protection
 if [ $MAX_REQUEST_SYSTEM -lt $MAX_REQUEST_AT_ALL_TIME ]; then
@@ -186,19 +201,16 @@ if [[ $API == *"antminer"* ]]; then
   echo
   echo "-----------------------"
   echo "ANTMINER machine detected on your account"
-  echo "Are you using STOCK or BRAIINS OS Firmware ?"
-  echo "Press [ENTER] if DEFAULT FACTORY FIRMWARE"
-  echo "Enter: braiins  - If you are using ALL antminer machines with Braiins Firmware"
   echo
-  echo "Answer:"
-  FIRMWARE=$(dialog --backtitle "minerstat Non-SSH Wizard" --title "Are you using STOCK or BRAIINS OS Firmware ?" --inputbox "Press [ENTER] if DEFAULT FACTORY FIRMWARE \n Enter: braiins  - If you are using ALL antminer machines with Braiins Firmware" 10 50 2>&1 1>/dev/tty)
+  sleep 1
+  FIRMWARE=$(dialog --backtitle "minerstat Non-SSH Wizard" --radiolist "Select with SPACE then press ENTER" 20 40 20 "Factory Firmware" "ORIGINAL" "" "Braiins Firmware" "BRAIINS" "BRAIINS" 2>&1 1>/dev/tty)
   #read FIRMWARE
   echo "-----------------------"
   echo
 fi
 
 #if [ ! -z $FIRMWARE ]; then
-if [ "$FIRMWARE" = "braiins" ]; then
+if [[ $FIRMWARE == *"Braiins"* ]]; then
   EXTRA="--firmware braiins"
 fi
 #fi
@@ -209,10 +221,8 @@ echo "-----------------------"
 
 if [ "$SYSTEM" = "MAC" ]; then
   if [[ $CRONTAB == *"local"* ]]; then
-    echo
     echo "= MAC PATH INSTALLED FOR CRON"
   else
-    echo
     echo "= INSALLING MAC PATH FOR CRON"
     echo "= “Terminal” would like to administer your computer. Administration can include modifying passwords, networking and system settings."
     echo "= CLICK on [OK]"
@@ -242,6 +252,7 @@ fi
 
 dialog --backtitle "minerstat Non-SSH Wizard" --title "Installation Finished." --msgbox "\n If you want to manually edit your crontabs: \n ENTER: export EDITOR=nano && crontab -e \n In manually crontab edit: CTRL + O [Save], CTRL + C [Close]" 10 70
 
+clear
 echo
 echo "Troubles? "
 echo "Support: https://minerstat.com/discord (Contact person: coinscrow#0001)"
