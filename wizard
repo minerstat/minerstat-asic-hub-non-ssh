@@ -47,6 +47,14 @@ else
   LOCATION="/usr/bin"
 fi
 
+echo
+echo "-------------------"
+echo "= ACCESS KEY   : $TOKEN"
+echo "= GROUP        : $GROUP"
+# Echo temporary data about software type and system
+echo "= System      : $SYSTEM"
+echo "= Exec        : $EXECNAME"
+
 # Dependencies Check
 which curl 2>&1 >/dev/null && curlPresent=true
 which jq 2>&1 >/dev/null && jqPresent=true
@@ -58,16 +66,17 @@ if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent
   echo ""
   echo "= INSTALLING DEPENDENCIES"
   echo ""
+  sleep 2
   if [ $SYSTEM = "MAC" ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew install wget curl jq dialog
   else
     sudo apt-get install wget curl jq dialog
-    sleep 3
   fi
   echo ""
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo ""
+  sleep 3
 fi
 
 unset curlPresent
@@ -75,6 +84,7 @@ unset jqPresent
 unset dialogPresent
 
 # Recheck
+echo "Validating dependencies.."
 which curl 2>&1 >/dev/null && curlPresent=true
 which jq 2>&1 >/dev/null && jqPresent=true
 which dialog 2>&1 >/dev/null && dialogPresent=true
@@ -115,14 +125,6 @@ if [ -z "$GROUP" ]; then
   echo '!! WARNING: Monitoring all worker(s) on the account'
   GROUP="asic"
 fi
-
-echo
-echo "-------------------"
-echo "= ACCESS KEY   : $TOKEN"
-echo "= GROUP        : $GROUP"
-# Echo temporary data about software type and system
-echo "= System      : $SYSTEM"
-echo "= Exec        : $EXECNAME"
 
 # Check it is installed
 FILE="$LOCATION/$EXECNAME"
