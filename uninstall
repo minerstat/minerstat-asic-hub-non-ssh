@@ -1,0 +1,92 @@
+#!/bin/bash
+# Contact: <info@minerstat.com>
+# Mail: Sepapaja tn 6, Lasnamäe district, Tallinn city, Harju county, 15551, Estonia
+# © minerstat OÜ in 2019
+
+echo "================ minerstat OÜ © 2019 ================"
+echo "ASIC Hub (Non-SSH) Uninstallation Wizard"
+echo "For live chat join us on Discord: https://minerstat.com/discord"
+
+echo
+echo "Preparing.."
+sleep 2
+
+# System check
+if [ "$(uname)" == "Darwin" ]; then
+  SYSTEM="MAC";
+else
+  SYSTEM="LINUX";
+fi
+PIFETCH=$(cat /proc/device-tree/model 2> /dev/null)
+if [[ $PIFETCH == *"Raspberry"* ]]; then
+  SYSTEM="RASPBERRY"
+fi
+
+CRONTAB=$(crontab -l | xargs -0)
+
+if [ "$SYSTEM" = "MAC" ]; then
+  EXECNAME="hub-mac"
+  LOCATION="/usr/local/bin"
+elif [ "$SYSTEM" = "LINUX" ]; then
+  EXECNAME="hub-linux"
+  LOCATION="/usr/bin"
+else
+  EXECNAME="hub-pi"
+  LOCATION="/usr/bin"
+fi
+
+echo
+echo "-------------------"
+# Echo temporary data about software type and system
+echo "= System      : $SYSTEM"
+echo "= Exec        : $EXECNAME"
+
+# Check it is installed
+FILE="$LOCATION/$EXECNAME"
+if [[ -f "$FILE" ]]; then
+  INSTALLED="YES"
+else
+  INSTALLED="NO"
+fi
+
+echo "= Installed?  : $INSTALLED"
+echo "-------------------"
+echo
+
+if [ "$INSTALLED" = "YES" ]; then
+  sudo rm "$LOCATION/$EXECNAME"
+fi
+
+echo
+echo "Checking for Crontabs ..."
+echo "-----------------------"
+
+
+#if [[ $CRONTAB == *"$EXECNAME"* ]]; then
+if [[ $CRONTAB == *"hub-"* ]]; then
+  echo "= Removing crontabs"
+  crontab -l > cron
+  if [ "$SYSTEM" = "MAC" ]; then
+    echo "= “Terminal” would like to administer your computer. Administration can include modifying passwords, networking and system settings."
+    echo "= CLICK on [OK]"
+  fi
+  sed -i.bak '/hub-/d' ./cron
+  crontab cron
+  rm cron
+fi
+#fi
+
+echo
+echo "-------------"
+echo "Uninstallation finished."
+echo "-------------"
+echo
+
+sleep 2
+
+clear
+echo
+echo "Uninstallation finished."
+echo "Need assistance? "
+echo "You can find us on https://minerstat.com/discord (contact person: coinscrow#0001)."
+echo
