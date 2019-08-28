@@ -70,9 +70,9 @@ if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent
     brew install wget curl jq dialog
   else
     FILE="/media/storage/config.js"
-    if [[ -f "$FILE" ]]; then
+    #if [[ -f "$FILE" ]]; then
       sudo apt --yes --force-yes --fix-broken install
-    fi
+    #fi
     sudo apt-get --yes --force-yes install wget curl jq dialog
     if [[ -f "$FILE" ]]; then
       NVIDIA="$(nvidia-smi -L)"
