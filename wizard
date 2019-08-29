@@ -33,6 +33,12 @@ PIFETCH=$(cat /proc/device-tree/model 2> /dev/null)
 if [[ $PIFETCH == *"Raspberry"* ]]; then
   SYSTEM="RASPBERRY"
 fi
+ARCHFETCH=$(cat /etc/issue 2> /dev/null)
+if [[ $ARCHFETCH == *"Arch"* ]]; then
+  echo "ARCH LINUX NOT SUPPORTED"
+  echo "PLEASE, USE UBUNTU (PC) // RASPBIAN BUSTER (PI)"
+  exit 0
+fi
 
 CRONTAB=$(crontab -l | xargs -0)
 
