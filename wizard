@@ -63,8 +63,9 @@ echo "= Exec        : $EXECNAME"
 which curl 2>&1 >/dev/null && curlPresent=true
 which jq 2>&1 >/dev/null && jqPresent=true
 which dialog 2>&1 >/dev/null && dialogPresent=true
+which screen 2>&1 >/dev/null && screenPresent=true
 
-if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent:-}" ]; then
+if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent:-}" ] || [ -z "${screenPresent:-}" ]; then
   echo ""
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo ""
@@ -73,13 +74,13 @@ if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent
   sleep 2
   if [ $SYSTEM = "MAC" ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew install wget curl jq dialog
+    brew install wget curl jq dialog screen
   else
     FILE="/media/storage/config.js"
     #if [[ -f "$FILE" ]]; then
       sudo apt --yes --force-yes --fix-broken install
     #fi
-    sudo apt-get --yes --force-yes install wget curl jq dialog
+    sudo apt-get --yes --force-yes install wget curl jq dialog screen
     if [[ -f "$FILE" ]]; then
       NVIDIA="$(nvidia-smi -L)"
       if echo "$NVIDIA" | grep -iq "^GPU 0:" ;then
