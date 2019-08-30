@@ -296,7 +296,7 @@ else
   echo "= No installation found for this access key and group"
   crontab -l > cron
   RN=$((1 + RANDOM % 9999))
-  echo "* * * * * screen -A -m -d -S mshub$RN $EXECNAME --token $TOKEN --group $GROUP --limit $MAX_REQUEST_AT_PER_TIME --debug 0 $EXTRA" >> cron
+  echo "* * * * * screen -A -m -d -S mshub$RN $LOCATION/$EXECNAME --token $TOKEN --group $GROUP --limit $MAX_REQUEST_AT_PER_TIME --debug 0 $EXTRA" >> cron
   cat cron
   crontab cron
   rm cron
