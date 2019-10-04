@@ -240,7 +240,19 @@ fi
 echo "-----------------------"
 
 # install
+if [ "$SYSTEM" = "MAC" ]; then
+  EXECNAME="hub-mac"
+  LOCATION="/usr/local/bin"
+elif [ "$SYSTEM" = "LINUX" ]; then
+  EXECNAME="hub-linux"
+  LOCATION="/usr/bin"
+else
+  EXECNAME="hub-pi"
+  LOCATION="/usr/bin"
+fi
+
 rm $EXECNAME 2> /dev/null
+sudo rm -rf $EXECNAME*
 wget https://github.com/minerstat/minerstat-asic-hub-non-ssh/releases/download/latest/$EXECNAME
 chmod 777 $EXECNAME
 echo
