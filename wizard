@@ -74,7 +74,7 @@ if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent
   sleep 2
   if [ $SYSTEM = "MAC" ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew install wget curl jq dialog screen gnu-sed
+    brew install wget curl jq dialog screen gnu-sed coreutils
   else
     FILE="/media/storage/config.js"
     #if [[ -f "$FILE" ]]; then
