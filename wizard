@@ -64,8 +64,9 @@ which curl 2>&1 >/dev/null && curlPresent=true
 which jq 2>&1 >/dev/null && jqPresent=true
 which dialog 2>&1 >/dev/null && dialogPresent=true
 which screen 2>&1 >/dev/null && screenPresent=true
+which tac 2>&1 >/dev/null && tacPresent=true
 
-if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent:-}" ] || [ -z "${screenPresent:-}" ]; then
+if [ -z "${curlPresent:-}" ] || [ -z "${jqPresent:-}" ] || [ -z "${dialogPresent:-}" ] || [ -z "${tacPresent:-}" ] || [ -z "${screenPresent:-}" ]; then
   echo ""
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo ""
@@ -100,6 +101,7 @@ fi
 unset curlPresent
 unset jqPresent
 unset dialogPresent
+unset tacPresent
 
 # COLOR
 rm ~/.dialogrc 2> /dev/null
