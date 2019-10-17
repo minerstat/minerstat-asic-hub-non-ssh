@@ -260,6 +260,7 @@ chmod 777 $EXECNAME
 echo
 echo "-----------------------"
 echo "Provide your SYSTEM (USER/ROOT) password below, if the system requires it"
+echo "on Linux / macOS this is your user password"
 echo "-----------------------"
 echo
 sudo cp -rf $EXECNAME $LOCATION
