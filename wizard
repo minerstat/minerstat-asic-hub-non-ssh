@@ -263,7 +263,9 @@ echo "Provide your SYSTEM (USER/ROOT) password below, if the system requires it"
 echo "on Linux / macOS this is your user password"
 echo "-----------------------"
 echo
+sudo rm $LOCATION/$EXECNAME
 sudo cp -rf $EXECNAME $LOCATION
+sudo $LOCATION/$EXECNAME --version
 
 FIRMWARE=""
 
