@@ -312,8 +312,8 @@ else
   echo "= INSALLING MAC PATH FOR CRON"
   echo "= “Terminal” would like to administer your computer. Administration can include modifying passwords, networking and system settings."
   echo "= CLICK on [OK]"
+  crontab -l > cron
   echo "0 10 * * * $LOCATION/$EXECNAME --update" >> cron
-  crontab -l >> cron
   crontab cron
   rm cron
 fi
