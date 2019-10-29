@@ -306,6 +306,18 @@ if [ "$SYSTEM" = "MAC" ]; then
   fi
 fi
 
+if [[ $CRONTAB == *"update"* ]]; then
+  echo "= AUTO UPDATE ALREADY SET"
+else
+  echo "= INSALLING MAC PATH FOR CRON"
+  echo "= “Terminal” would like to administer your computer. Administration can include modifying passwords, networking and system settings."
+  echo "= CLICK on [OK]"
+  echo "0 10 * * * $LOCATION/$EXECNAME --update" >> cron
+  crontab -l >> cron
+  crontab cron
+  rm cron
+fi
+
 #if [[ $CRONTAB == *"$EXECNAME"* ]]; then
 if [[ $CRONTAB == *"--token $TOKEN"* ]] && [[ $CRONTAB == *"--group $GROUP"* ]] && [[ $CRONTAB == *"$EXTRA"* ]]; then
   echo "= Installation already found for this access key and group"
