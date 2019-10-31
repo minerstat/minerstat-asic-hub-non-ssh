@@ -14,6 +14,7 @@ Monitoring and management software - ASIC Hub (Non-SSH) makes possible to monito
 * Obelisk's ASICs
 * Spondoolies's ASICs
 * StrongU's ASICs
+* Whatsminer's ASICs
 
 Including the latest ones (not full list):
 * [Antminer B7](https://minerstat.com/hardware/antminer-b7)
@@ -42,7 +43,9 @@ Including the latest ones (not full list):
 * [Innosilicon A9 - ZMaster](https://minerstat.com/hardware/innosilicon-a9-zmaster)
 * [Innosilicon D9 - DecredMaster](https://minerstat.com/hardware/innosilicon-d9-decredmaster)
 * [Innosilicon S11 - SiaMaster](https://minerstat.com/hardware/innosilicon-s11-siamaster)
-* [Spondoolies SPx36 profitability](https://minerstat.com/hardware/spondoolies-spx36)
+* [Spondoolies SPx36](https://minerstat.com/hardware/spondoolies-spx36)
+* [MicroBT Whatsminer M20S](https://minerstat.com/hardware/microbt-whatsminer-m20s)
+* [MicroBT Whatsminer M21](https://minerstat.com/hardware/microbt-whatsminer-m21)
 
 Work in progress for more ASIC support.
 
@@ -150,6 +153,15 @@ If custom firmwares monitored that need to be on one instance as firmware tag ap
 CTRL + O -> SAVE
 
 CTRL + C -> CLOSE
+
+### How to update?
+
+Software is auto-updating itself by default. If installed with Wizard.
+For manually update just enter e.g (hub- linux/mac/pi)
+
+``` sh
+hub-linux --update
+```
 
 ### Importance of ulimit
 
