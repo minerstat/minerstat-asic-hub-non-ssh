@@ -9,6 +9,7 @@ Monitoring and management software - ASIC Hub (Non-SSH) makes possible to monito
 * Bitmain's Antminer ASICs
 * Braiins OS Firmware
 * Dayun's ASICs
+* Ebang (Ebit)'s ASICs
 * Fusionsilicon ASICs
 * Innosilicon's ASICs
 * Obelisk's ASICs
@@ -46,6 +47,7 @@ Including the latest ones (not full list):
 * [Spondoolies SPx36](https://minerstat.com/hardware/spondoolies-spx36)
 * [MicroBT Whatsminer M20S](https://minerstat.com/hardware/microbt-whatsminer-m20s)
 * [MicroBT Whatsminer M21](https://minerstat.com/hardware/microbt-whatsminer-m21)
+* [Ebang E12](https://minerstat.com/hardware/ebang-ebit-e12)
 
 Work in progress for more ASIC support.
 
