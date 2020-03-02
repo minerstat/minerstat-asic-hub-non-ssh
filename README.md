@@ -16,6 +16,7 @@ Monitoring and management software - ASIC Hub (Non-SSH) makes possible to monito
 * Spondoolies's ASICs
 * StrongU's ASICs
 * Whatsminer's ASICs
+* Canaan Avalon ASICs
 
 Including the latest ones (not full list):
 * [Antminer B7](https://minerstat.com/hardware/antminer-b7)
@@ -28,6 +29,7 @@ Including the latest ones (not full list):
 * [Antminer T17](https://minerstat.com/hardware/antminer-t17)
 * [Antminer Z9](https://minerstat.com/hardware/antminer-z9)
 * [Antminer Z11](https://minerstat.com/hardware/antminer-z11)
+* [Canaan AvalonMiner 1066](https://minerstat.com/hardware/canaan-avalonminer-1066)
 * [Obelisk DCR1](https://minerstat.com/hardware/obelisk-dcr1)
 * [Obelisk DCR1 Slim](https://minerstat.com/hardware/obelisk-dcr1-slim)
 * [Obelisk GRN1](https://minerstat.com/hardware/obelisk-grn1)
