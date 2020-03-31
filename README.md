@@ -18,6 +18,7 @@ Monitoring and management software - ASIC Hub (Non-SSH) makes possible to monito
 * Whatsminer's ASICs
 * Canaan Avalon ASICs
 * Cheetah ASICs
+* Toddminer ASICs
 
 Including the latest ones (not full list):
 * [Antminer B7](https://minerstat.com/hardware/antminer-b7)
@@ -52,6 +53,7 @@ Including the latest ones (not full list):
 * [MicroBT Whatsminer M20S](https://minerstat.com/hardware/microbt-whatsminer-m20s)
 * [MicroBT Whatsminer M21](https://minerstat.com/hardware/microbt-whatsminer-m21)
 * [Ebang E12](https://minerstat.com/hardware/ebang-ebit-e12)
+* [Toddminer C1](https://minerstat.com/hardware/toddminer-c1)
 
 Work in progress for more ASIC support.
 
